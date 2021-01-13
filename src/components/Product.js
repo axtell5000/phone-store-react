@@ -6,6 +6,6 @@ export default class Product extends Component {
       <div>
         <h3>Product here</h3>
       </div>
-    )
+    );
   }
 }

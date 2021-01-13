@@ -6,6 +6,6 @@ export default class Default extends Component {
       <div>
         <h3>page not found</h3>
       </div>
-    )
+    );
   }
 }

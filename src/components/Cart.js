@@ -6,6 +6,6 @@ export default class Cart extends Component {
       <div>
         <h3>Cart</h3>
       </div>
-    )
+    );
   }
 }
