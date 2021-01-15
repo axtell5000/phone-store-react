@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { ProductConsumer } from '../context';
 
@@ -40,6 +41,18 @@ export default class Product extends Component {
       </ProductWrapper>
     );
   }
+}
+
+// prop types
+Product.propTypes = {
+  // shape is to deep dive into an object
+  product:PropTypes.shape({
+    id: PropTypes.number,
+    img: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    inCart: PropTypes.bool
+  }).isRequired
 }
 
 const ProductWrapper = styled.div`
