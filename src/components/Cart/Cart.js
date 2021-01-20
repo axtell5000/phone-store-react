@@ -6,6 +6,7 @@ import Title from '../Title';
 import CartCols from './CartCols';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
+import CartTotals from './CartTotals';
 
 export default class Cart extends Component {
   render() {
@@ -21,6 +22,7 @@ export default class Cart extends Component {
                     <Title name="your" title="cart" />
                     <CartCols />
                     <CartList value={value} />
+                    <CartTotals value={value} />
                   </Fragment>
                 );
               } else {

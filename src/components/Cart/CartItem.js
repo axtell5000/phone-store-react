@@ -59,5 +59,5 @@ export default function CartItem({item, value}) {
         <strong>item total : ${total} </strong>
       </div>
     </div>
-  )
+  );
 }
