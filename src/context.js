@@ -55,10 +55,10 @@ class ProductProvider extends Component {
 
     this.setState(() => {
       return {
-        products: tempProducts,
+        products: [...tempProducts],
         cart: [...this.state.cart, product]
       };
-    });
+    }, this.addTotals);
   };
 
   openModal = id => {
@@ -90,6 +90,21 @@ class ProductProvider extends Component {
     console.log('Clear cart method');
   };
 
+  addTotals = () => {
+    let subTotal = 0;
+    this.state.cart.map(item => (subTotal += item.total));
+    const tempTax = subTotal * 0.1;
+    const tax = parseFloat(tempTax.toFixed(2));
+    const total = subTotal + tax;
+    this.setState(() => {
+      return {
+        cartSubTotal: subTotal,
+        cartTax: tax,
+        cartTotal: total
+      };
+    });
+  }
+
   render() {
     // for methods we must pass each one individually
     return (
@@ -102,7 +117,8 @@ class ProductProvider extends Component {
         increment: this.increment,
         decrement: this.decrement,
         removeItem: this.removeItem,
-        clearCart: this.clearCart
+        clearCart: this.clearCart,
+        addTotals: this.addTotals
       }}>
         {this.props.children}
       </ProductContext.Provider>
