@@ -75,11 +75,41 @@ class ProductProvider extends Component {
   };
 
   increment = id => {
-    console.log('Increment method');
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find(item => {
+      return item.id === id;
+    });
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count + 1;
+    product.total = product.count * product.price;
+    // setting state and recalculating total
+    this.setState(() => {
+      return {
+        cart: [...tempCart]
+      };
+    }, this.addTotals);
   };
 
   decrement = id => {
-    console.log('Decrement method');
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find(item => {
+      return item.id === id;
+    });
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+    product.count = product.count - 1;
+
+    // dont want item in cart with count of zero, so remove it
+    if (product.count === 0) {
+      this.removeItem(id);
+    } else {
+      product.total = product.count * product.price;
+      // setting state and recalculating total
+      this.setState(() => {
+        return { cart: [...tempCart] };
+      }, this.addTotals);
+    }
   };
 
   removeItem = id => {
@@ -89,6 +119,19 @@ class ProductProvider extends Component {
     tempCart = tempCart.filter(item => {
       return item.id !== id;
     });
+
+    const index = tempProducts.indexOf(this.getItem(id));
+    let removedProduct = tempProducts[index];
+    removedProduct.inCart = false;
+    removedProduct.count = 0;
+    removedProduct.total = 0;
+
+    this.setState(() => {
+      return {
+        cart: [...tempCart],
+        products: [...tempProducts]
+      };
+    }, this.addTotals);
   };
 
   clearCart = () => {
